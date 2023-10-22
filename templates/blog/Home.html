@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Blog | Mycrobites</title>
+
+</head>
+
+<body>
+    <div class="header w3-container w3-padding">
+        <div class="row w3-padding">
+            {% comment %} <h2 class=" w3-title w3-center" style="font-weight: bolder;"></h2> {% endcomment %}
+            <a href="https://mycrobites-final.herokuapp.com/"><img src="static/logoimg.png" style="height:50pt;"></img></a>
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" id="search" class="searchTerm" placeholder="Search a blog...">
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="mainsec w3-container" style="padding:0px 100px;">
+        <div class="w3-row-padding w3-center" id="blogpost">
+        </div>
+
+    </div>
+    <footer class="w3-container w3-black">
+        <div style="width: 50%;display: flex; flex-direction: column;">
+            <h4>Follow us on social Media:</h4>
+            <span>
+                <i class="fa fa-facebook" style="color:rgb(19, 51, 233)"></i>
+                <i class="fa fa-twitter" style="color:rgb(30, 207, 223)"></i>
+                <i class="fa fa-linkedin" style="color:rgb(31, 132, 226)"></i>
+            </span>
+        </div>
+        <div style="word-wrap: break-word;display: flex; flex-direction: column;">
+            <h4>Subsbscribe and get my latest blog post in your inbox.</h4>
+            <div class="wraping" style="width: 100%;">
+                <div class="email" style="display: flex;">
+                    <input type="text" class="searchTerm" style="border-color:#E7B935;" placeholder="Enter Email..">
+                    <button type="submit" class="w3-btn"
+                        style="color:black; padding:8px;width:120px; background-color: #E7B935; border: 2px #E7B935;border-radius:0px 5px 5px 0px;outline:0px">
+                        Subscribe
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/home.js"></script>
+{% for post in allPosts %}
+<div id="temp{{forloop.counter0}}" style="display: none;">{{post.content |safe| truncatechars:100 }}</div>
+<script>
+    num = Number('{{forloop.counter0}}');
+    if (num % 6 == 0) {
+        one('/media/{{post.img}}', '{{post.title}}', $("#temp{{forloop.counter0}}").html(), '{{post.author}}', '{{post.timeStamp}}', '/{{post.slug}}');
+    }
+    else if(num%6>0 && num%6<=3)
+    {
+        three('/media/{{post.img}}', '{{post.title}}', $("#temp{{forloop.counter0}}").html(), '{{post.author}}', '{{post.timeStamp}}', '/{{post.slug}}');
+    }
+    else {
+        two('/media/{{post.img}}', '{{post.title}}', $("#temp{{forloop.counter0}}").html(), '{{post.author}}', '{{post.timeStamp}}', '/{{post.slug}}');
+    }
+</script>
+{% endfor %}
+
+
+</html>
